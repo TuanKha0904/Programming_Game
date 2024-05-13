@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         int choose;
@@ -10,8 +11,7 @@ public class Main {
                     break;
                 }
                 case 2: {
-                    System.out.println("Cola Machine");
-                    System.out.println();
+                    Cola_Machine();
                     break;
                 }
                 case 3: {
@@ -36,12 +36,11 @@ public class Main {
                 default:
                     System.out.println("Invalid Choice. Try Again.");
                     System.out.println();
-                    break;
             }
         } while (choose < 0 || choose > 6);
     }
     // menu choose game
-    static int menu(){
+    static int menu() {
         Scanner input = new Scanner(System.in);
         int choose;
         System.out.println("Please choose one of the following options: ");
@@ -60,25 +59,58 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int score;
         System.out.println("Enter the grade scored: ");
-        do{
+        do {
             score = input.nextInt();
             if (score < 0 || score > 100)
                 System.out.println("Invalid Score. Try Again.");
         } while (score < 0 || score > 100);
-        if(score >= 90){
+        if (score >= 90) {
             System.out.println("You got an A");
-        } else if(score >= 80) {
+        } else if (score >= 80) {
             System.out.println("You got an B");
-        }
-        else if(score >= 70) {
+        } else if (score >= 70) {
             System.out.println("You got an C");
-        }
-        else if(score >= 60) {
+        } else if (score >= 60) {
             System.out.println("You got an D");
-        }
-        else {
+        } else {
             System.out.println("You got an F");
         }
     }
-
+    // 2.  Cola Machine
+    static void Cola_Machine() {
+        Scanner input = new Scanner(System.in);
+        int choose;
+        System.out.println("Please choose one of the following options: ");
+        System.out.println("1. Coke");
+        System.out.println("2. Water");
+        System.out.println("3. Sprite");
+        System.out.println("4. Pepsi");
+        System.out.println("5. Beer");
+        choose = input.nextInt();
+        switch (choose) {
+            case 1: {
+                System.out.println("You have chosen Coke");
+                break;
+            }
+            case 2: {
+                System.out.println("You have chosen Water");
+                break;
+            }
+            case 3: {
+                System.out.println("You have chosen Sprite");
+                break;
+            }
+            case 4: {
+                System.out.println("You have chosen Pepsi");
+                break;
+            }
+            case 5: {
+                System.out.println("You have chosen Beer");
+                break;
+            }
+            default:
+                System.out.println("Error. choice was not valid, here is your money back.");
+                break;
+        }
+    }
 }
