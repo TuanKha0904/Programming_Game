@@ -55,7 +55,30 @@ public class Main {
         choose = input.nextInt();
         return choose;
     }
+    // 1. Grading Program
     static void Grading_Program() {
-        System.out.println("Grading Program");
+        Scanner input = new Scanner(System.in);
+        int score;
+        System.out.println("Enter the grade scored: ");
+        do{
+            score = input.nextInt();
+            if (score < 0 || score > 100)
+                System.out.println("Invalid Score. Try Again.");
+        } while (score < 0 || score > 100);
+        if(score >= 90){
+            System.out.println("You got an A");
+        } else if(score >= 80) {
+            System.out.println("You got an B");
+        }
+        else if(score >= 70) {
+            System.out.println("You got an C");
+        }
+        else if(score >= 60) {
+            System.out.println("You got an D");
+        }
+        else {
+            System.out.println("You got an F");
+        }
     }
+
 }
