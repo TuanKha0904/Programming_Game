@@ -15,13 +15,11 @@ public class Main {
                     break;
                 }
                 case 3: {
-                    System.out.println("While");
-                    System.out.println();
+                    While();
                     break;
                 }
                 case 4: {
-                    System.out.println("PanCake");
-                    System.out.println();
+                    PanCake();
                     break;
                 }
                 case 5: {
@@ -111,6 +109,48 @@ public class Main {
             default:
                 System.out.println("Error. choice was not valid, here is your money back.");
                 break;
+        }
+    }
+    // 3. While
+    static void While(){
+        Scanner input = new Scanner(System.in);
+        int enter;
+        for(int i = 0; i < 10 ;i++){
+            System.out.println("Please enter any number other than " + i);
+            enter = input.nextInt();
+            if(enter == i){
+                System.out.println("Hey! you weren't supposed to enter " + i +"!");
+                System.exit(0);
+            }
+            if(i == 9)
+                System.out.println("Wow, you're more patient then I am, you win.");
+        }
+    }
+    // 4. PanCake
+    static void PanCake() {
+        Scanner input = new Scanner(System.in);
+        int enter;
+        int[][] array = new int [10][2];
+        for(int i = 0; i < 10; i++){
+            System.out.println("Person " + (i + 1));
+            enter = input.nextInt();
+            array[i][0] = i + 1;
+            array[i][1] = enter;
+        }
+        for (int i = 0; i < 10; i++){
+            for(int j = i + 1; j < 10; j++){
+                if(array[i][1] < array[j][1]){
+                    int temp0 = array[i][0];
+                    int temp1 = array[i][1];
+                    array[i][0] = array[j][0];
+                    array[i][1] = array[j][1];
+                    array[j][0] = temp0;
+                    array[j][1] = temp1;
+                }
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Person " + array[i][0] + " ate " + array[i][1] + " pancakes");
         }
     }
 }
