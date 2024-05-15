@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login_Example {
@@ -12,7 +14,7 @@ public class Login_Example {
         frame.setVisible(true);
     }
 
-    public static void placeComponents(JPanel panel) {
+    private static void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
         JLabel userLabel = new JLabel("User");
@@ -39,8 +41,19 @@ public class Login_Example {
         registerButton.setBounds(165, 80, 100, 25);
         panel.add(registerButton);
 
+        // button listener
         ActionListener buttonListener = new Button_Listener();
         loginButton.addActionListener(buttonListener);
         registerButton.addActionListener(buttonListener);
+
+        // Anonymous inner class.
+        ActionListener loginAndRegisterButtonListener = e -> {
+            JButton source = (JButton) e.getSource();
+            JOptionPane.showMessageDialog(source, source.getText()
+                    + " button has been pressed");
+        };
+        loginButton.addActionListener(loginAndRegisterButtonListener);
+        registerButton.addActionListener(loginAndRegisterButtonListener);
+
     }
 }
