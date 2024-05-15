@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class Login_Example {
     public static void main(String[] args) {
@@ -37,5 +38,9 @@ public class Login_Example {
         JButton registerButton = new JButton("Register");
         registerButton.setBounds(165, 80, 100, 25);
         panel.add(registerButton);
+
+        ActionListener buttonListener = new Button_Listener();
+        loginButton.addActionListener(buttonListener);
+        registerButton.addActionListener(buttonListener);
     }
 }
