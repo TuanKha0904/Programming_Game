@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class Game extends JPanel {
     int x, y = 0;
     private void moveBall (){
