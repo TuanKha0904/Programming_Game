@@ -40,6 +40,8 @@ public class Game extends JPanel {
         racquet.paint(g2d);
     }
     public void gameOver() {
+        AudioGame.stopAll();
+        AudioGame.play("GAMEOVER");
         JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.ERROR_MESSAGE);
         System.exit(ABORT);
     }
@@ -51,6 +53,7 @@ public class Game extends JPanel {
         frame.setSize(300, 400);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        AudioGame.play("BACK");
 
         while (true) {
             game.move();
