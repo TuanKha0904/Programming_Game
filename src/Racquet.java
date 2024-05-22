@@ -1,16 +1,22 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
+enum RacquetDirection {
+    LEFT, RIGHT
+}
 
 public class Racquet {
     int x = 0;
     int xa = 0;
     private final Game game;
-    private static final int Y = 330;
+    int Y = 330;
     private static final int WIDTH = 60;
     private static final int HEIGHT = 10;
 
-    public Racquet(Game game) {
+    public Racquet(Game game, int x, int xa, int y) {
         this.game= game;
+        this.x = x;
+        this.xa = xa;
+        this.Y = y;
     }
 
     public void move() {
@@ -19,7 +25,7 @@ public class Racquet {
     }
 
     public void paint(Graphics2D g) {
-        g.fillRect(x, 330, 60, 10);
+        g.fillRect(x, Y, 60, 10);
         g.setColor(Color.pink);
     }
 
@@ -40,5 +46,12 @@ public class Racquet {
 
     public int getTopY() {
         return Y;
+    }
+
+    public void keyPressed(RacquetDirection racquetDirection) {
+        if (racquetDirection == RacquetDirection.LEFT)
+            xa = -1;
+        if (racquetDirection == RacquetDirection.RIGHT)
+            xa = 1;
     }
 }

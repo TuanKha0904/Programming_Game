@@ -5,7 +5,10 @@ import java.awt.event.KeyListener;
 
 public class Game extends JPanel {
     Ball ball = new Ball(this);
-    Racquet racquet = new Racquet(this);
+    Racquet racquet = new Racquet(this, 0, 0, 330);
+    Racquet racquet2 = new Racquet(this, 0, 0, 30);
+    int speed = 1;
+
     public Game() {
         addKeyListener(new KeyListener() {
             @Override
@@ -14,11 +17,26 @@ public class Game extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                racquet.keyReleased(e);
+                if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN)
+                    racquet.keyReleased(e);
+                if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D)
+                    racquet2.keyReleased(e);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    racquet2.keyPressed(RacquetDirection.RIGHT);
+                }
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    racquet2.keyPressed(RacquetDirection.LEFT);
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    racquet.keyPressed(RacquetDirection.RIGHT);
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    racquet.keyPressed(RacquetDirection.LEFT);
+                }
                 racquet.keyPressed(e);
             }
         });
@@ -28,6 +46,7 @@ public class Game extends JPanel {
     private void move() {
         ball.move();
         racquet.move();
+        racquet2.move();
     }
 
     @Override
@@ -37,6 +56,7 @@ public class Game extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         ball.paint(g2d);
+        racquet2.paint(g2d);
         racquet.paint(g2d);
     }
     public void gameOver() {
