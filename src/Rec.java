@@ -11,12 +11,12 @@ public class Rec {
     private static final Random random = new Random();
     private static final int NUM_BRICKS = random.nextInt(10, 30);
 
-    public Rec(BrickBreaker game) throws IOException {
+    public Rec() throws IOException {
         this.bricks = new ArrayList<>();
         initializeBricks();
     }
 
-    private void initializeBricks() throws IOException {
+    public void initializeBricks() throws IOException {
         for (int i = 0; i < NUM_BRICKS; i++) {
             int x = random.nextInt(0, 700 - WIDTH);
             int y = random.nextInt(20, 300);
@@ -28,10 +28,6 @@ public class Rec {
         for (Brick brick : bricks) {
                 brick.paint(g);
         }
-    }
-
-    public void removeBrick(Brick brick) {
-        bricks.remove(brick);
     }
 
     public List<Brick> getBricks() {

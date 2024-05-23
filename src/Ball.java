@@ -1,13 +1,12 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
 public class Ball {
-    int x = 0;
-    int y = 0;
+    int x;
+    int y;
     int xa = 1;
     int ya = 1;
     private final BrickBreaker game;

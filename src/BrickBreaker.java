@@ -3,13 +3,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.util.Random;
 
 public class BrickBreaker extends JPanel {
     Ball ball = new Ball(this);
     Racquet racquet = new Racquet(this);
-    Rec rec = new Rec(this);
-    final Random random = new Random();
+    Rec rec = new Rec();
+
     public BrickBreaker() throws IOException {
         addKeyListener(new KeyListener() {
             @Override
@@ -67,9 +66,5 @@ public class BrickBreaker extends JPanel {
             game.repaint();
             Thread.sleep(10);
         }
-    }
-
-    public Rec getRec() {
-        return rec;
     }
 }
