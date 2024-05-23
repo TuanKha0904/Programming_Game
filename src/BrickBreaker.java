@@ -3,12 +3,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Random;
 
 public class BrickBreaker extends JPanel {
     Ball ball = new Ball(this);
     Racquet racquet = new Racquet(this);
     Rec rec = new Rec(this);
-    public BrickBreaker() {
+    final Random random = new Random();
+    public BrickBreaker() throws IOException {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -25,6 +27,7 @@ public class BrickBreaker extends JPanel {
             }
         });
         setFocusable(true);
+        setBackground(Color.BLACK);
     }
 
     private void move() {
@@ -46,7 +49,11 @@ public class BrickBreaker extends JPanel {
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) throws InterruptedException {
+    public void gameOver() {
+        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.ERROR_MESSAGE);
+        System.exit(ABORT);
+    }
+    public static void main(String[] args) throws InterruptedException, IOException {
         JFrame obj = new JFrame();
         BrickBreaker game = new BrickBreaker();
         obj.setBounds(10, 10, 700, 600);
@@ -62,8 +69,7 @@ public class BrickBreaker extends JPanel {
         }
     }
 
-    public void gameOver() {
-        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.ERROR_MESSAGE);
-        System.exit(ABORT);
+    public Rec getRec() {
+        return rec;
     }
 }

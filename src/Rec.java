@@ -1,17 +1,40 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Rec {
-    private final BrickBreaker game;
-    private static final int WIDTH = 100;
-    private static final int HEIGHT = 40;
-    public Rec(BrickBreaker game) {
-        this.game= game;
+    private final List<Brick> bricks;
+    private static final int WIDTH = 40;
+    private static final int HEIGHT = 20;
+    private static final Random random = new Random();
+    private static final int NUM_BRICKS = random.nextInt(10, 30);
+
+    public Rec(BrickBreaker game) throws IOException {
+        this.bricks = new ArrayList<>();
+        initializeBricks();
     }
+
+    private void initializeBricks() throws IOException {
+        for (int i = 0; i < NUM_BRICKS; i++) {
+            int x = random.nextInt(0, 700 - WIDTH);
+            int y = random.nextInt(20, 300);
+            bricks.add(new Brick(x, y, WIDTH, HEIGHT));
+        }
+    }
+
     public void paint(Graphics2D g) throws IOException {
-        Image img = ImageIO.read(new File("src/assets/56-Breakout-Tiles.png"));
-        g.drawImage(img, 100, 50, WIDTH, HEIGHT, null);
+        for (Brick brick : bricks) {
+                brick.paint(g);
+        }
+    }
+
+    public void removeBrick(Brick brick) {
+        bricks.remove(brick);
+    }
+
+    public List<Brick> getBricks() {
+        return bricks;
     }
 }

@@ -10,7 +10,7 @@ public class Racquet {
     private final BrickBreaker game;
     private static final int Y = 450;
     private static final int WIDTH = 100;
-    private static final int HEIGHT = 40;
+    private static final int HEIGHT = 20;
 
     public Racquet(BrickBreaker game) {
         this.game= game;

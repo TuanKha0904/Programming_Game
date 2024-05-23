@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class Ball {
     int x = 0;
@@ -32,10 +33,22 @@ public class Ball {
         }
         x = x + xa;
         y = y + ya;
+        checkCollisionWithBricks();
     }
     public void paint(Graphics2D g) throws IOException {
         Image img = ImageIO.read(new File("src/assets/60-Breakout-Tiles.png"));
         g.drawImage(img, x, y, DIAMETER, DIAMETER, null);
+    }
+
+    private void checkCollisionWithBricks() {
+        Iterator<Brick> iterator = game.rec.getBricks().iterator();
+        while (iterator.hasNext()) {
+            Brick brick = iterator.next();
+            if (getBounds().intersects(brick.getBounds())) {
+                iterator.remove();
+                ya = -ya;
+            }
+        }
     }
 
     private boolean collision() {
