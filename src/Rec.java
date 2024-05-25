@@ -24,9 +24,18 @@ public class Rec {
         }
     }
 
+    public void resetBricks() {
+        bricks.clear();
+        try {
+            initializeBricks();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void paint(Graphics2D g) throws IOException {
         for (Brick brick : bricks) {
-                brick.paint(g);
+            brick.paint(g);
         }
     }
 

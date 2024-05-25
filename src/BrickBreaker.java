@@ -8,8 +8,10 @@ public class BrickBreaker extends JPanel {
     Ball ball = new Ball(this);
     Racquet racquet = new Racquet(this);
     Rec rec = new Rec();
+    private int score = 0;
 
     public BrickBreaker() throws IOException {
+        initGame();
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -17,7 +19,7 @@ public class BrickBreaker extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                racquet.keyReleased(e);
+                racquet.keyReleased();
             }
 
             @Override
@@ -34,6 +36,13 @@ public class BrickBreaker extends JPanel {
         racquet.move();
     }
 
+    public void increaseScore() {
+        score++;
+    }
+    public void increaseSpeed() {
+        ball.increaseSpeed();
+        racquet.increaseSpeed();
+    }
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -47,11 +56,42 @@ public class BrickBreaker extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        g2d.setColor(Color.YELLOW);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        g2d.drawString("Score: " + score, 10, 20);
     }
+
     public void gameOver() {
-        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.ERROR_MESSAGE);
-        System.exit(ABORT);
+        GameAudio.stopAll();
+        GameAudio.play("GAMEOVER");
+        int option = JOptionPane.showOptionDialog(this,
+                "Game over. Your score: " + score,
+                "Game Over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Exit", "Restart"},
+                "Exit"
+        );
+        if (option == JOptionPane.NO_OPTION) {
+            try {
+                initGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else System.exit(ABORT);
     }
+
+    private void initGame() throws IOException {
+        ball = new Ball(this);
+        racquet = new Racquet(this);
+        rec = new Rec();
+        score = 0;
+        GameAudio.stopAll();
+        GameAudio.play("START");
+        GameAudio.playLoop("BACK");
+    }
+
     public static void main(String[] args) throws InterruptedException, IOException {
         JFrame obj = new JFrame();
         BrickBreaker game = new BrickBreaker();
@@ -61,6 +101,8 @@ public class BrickBreaker extends JPanel {
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         obj.add(game);
+        GameAudio.play("START");
+        GameAudio.play("BACK");
         while (true) {
             game.move();
             game.repaint();

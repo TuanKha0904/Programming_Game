@@ -5,20 +5,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class Racquet {
-    int x = 0;
+    int x;
     int xa = 0;
     private final BrickBreaker game;
     private static final int Y = 450;
     private static final int WIDTH = 100;
     private static final int HEIGHT = 20;
+    int speed = 2;
 
     public Racquet(BrickBreaker game) {
-        this.game= game;
+        this.game = game;
         this.x = 700 / 2 - WIDTH / 2;
     }
 
     public void move() {
-        if (x + xa > 0 && x + xa < game.getWidth()-WIDTH)
+        if (x + xa > 0 && x + xa < game.getWidth() - WIDTH)
             x = x + xa;
     }
 
@@ -27,15 +28,15 @@ public class Racquet {
         g.drawImage(img, x, Y, WIDTH, HEIGHT, null);
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased() {
         xa = 0;
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT)
-            xa = -1;
+            xa = -speed;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-            xa = 1;
+            xa = speed;
     }
 
     public int getTopY() {
@@ -44,5 +45,9 @@ public class Racquet {
 
     public Rectangle getBounds() {
         return new Rectangle(x, Y, WIDTH, HEIGHT);
+    }
+
+    public void increaseSpeed() {
+        speed++;
     }
 }
