@@ -21,6 +21,7 @@ public class GamePlay extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                snake.keyPressed(e);
             }
         });
         setFocusable(true);

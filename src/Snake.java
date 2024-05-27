@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -48,13 +49,13 @@ public class Snake implements ActionListener {
         Image tail = ImageIO.read(new File("src/assets/tail.png"));
         g.drawImage(headLeft, snakeXLength[0], snakeYLength[0], WIDTH, HEIGHT, null);
         for (int length = 0; length < snakeLength; length++) {
-            if(length == 0 && left)
+            if (length == 0 && left)
                 g.drawImage(headLeft, snakeXLength[length], snakeYLength[length], WIDTH, HEIGHT, null);
-            if(length == 0 && right)
+            if (length == 0 && right)
                 g.drawImage(headRight, snakeXLength[length], snakeYLength[length], WIDTH, HEIGHT, null);
-            if(length == 0 && up)
+            if (length == 0 && up)
                 g.drawImage(headUp, snakeXLength[length], snakeYLength[length], WIDTH, HEIGHT, null);
-            if(length == 0 && down)
+            if (length == 0 && down)
                 g.drawImage(headDown, snakeXLength[length], snakeYLength[length], WIDTH, HEIGHT, null);
             if (length != 0)
                 g.drawImage(tail, snakeXLength[length], snakeYLength[length], WIDTH, HEIGHT, null);
@@ -64,5 +65,11 @@ public class Snake implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+
+        }
     }
 }
