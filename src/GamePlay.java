@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePlay extends JPanel {
-    Snake snake = new Snake(this);
+    Snake snake = new Snake(2, 4,this);
 
     public GamePlay() {
         addKeyListener(new KeyListener() {
@@ -30,13 +30,11 @@ public class GamePlay extends JPanel {
     @Override
     public void paint(Graphics g) {
         try {
+            super.paint(g);
             // draw title image
             Graphics2D g2d = (Graphics2D) g;
             Image titleImg = ImageIO.read(new File("src/assets/title.png"));
             g.drawImage(titleImg, 25, 10, 835, 80, null);
-            // draw background image
-//            Image backImg = ImageIO.read(new File("src/assets/grass.jpg"));
-//            g.drawImage(backImg, 25, 110, 835, 500, null);
 
             // draw border background
             g2d.setColor(Color.GREEN);
@@ -44,12 +42,14 @@ public class GamePlay extends JPanel {
 
             // draw background
             g2d.setColor(Color.BLACK);
-            g2d.fillRect(25, 110, 835, 500);
+            g2d.fillRect(25, 100, 835, 500);
             // draw snake
             snake.paint(g2d);
-            g.dispose();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void move() {
+        snake.move();
     }
 }
