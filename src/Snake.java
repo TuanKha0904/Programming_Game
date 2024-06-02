@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Snake {
-    public static final int SIZE = 25;
+    private final int SIZE;
     Block head;
     ArrayList<Block> body;
     Image headLeft, headRight, headUp, headDown, tail;
@@ -17,8 +17,9 @@ public class Snake {
     private boolean up = false;
     private boolean down = false;
 
-    public Snake(int x, int y, GamePlay game) {
+    public Snake(int size, int x, int y, GamePlay game) {
         this.game = game;
+        this.SIZE = size;
         head = new Block(x, y);
         body = new ArrayList<>();
         body.add(new Block(x - 1, y));
@@ -104,7 +105,7 @@ public class Snake {
         }
     }
 
-    public boolean checkCollision(int areaXPosition, int areaWidth, int areaYPosition, int areaHeight) {
+    public void checkCollision(int areaXPosition, int areaWidth, int areaYPosition, int areaHeight) {
         int maxX = (areaXPosition + areaWidth) / SIZE;
         int maxY = (areaYPosition + areaHeight) / SIZE;
 
@@ -122,9 +123,14 @@ public class Snake {
         // Check self-collision
         for (Block block : body) {
             if (block.x == head.x && block.y == head.y) {
-                return true;
+                game.gameOver();
             }
         }
-        return false;
+
+        // Check fruit collision
+        if (head.x == game.fruit.fruit.x && head.y == game.fruit.fruit.y) {
+            body.add(new Block(body.getLast().x, body.getLast().y));
+            game.fruit.setFruit(game.gameWidth / SIZE, game.areaHeight / SIZE);
+        }
     }
 }

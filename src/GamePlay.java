@@ -6,13 +6,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePlay extends JPanel implements ActionListener {
-    private final int areaXPosition = 25;
-    private final int areaYPosition = 100;
-    private final int gameWidth = 825;
-    private final int areaHeight = 500;
+    public final int SIZE = 25; // Size of each block
+    public int initXPosition = 2; // Calculator x position of the board on the screen (x = initXPosition * SIZE)
+    public int initYPosition = 4; // Calculator y position of the board on the screen (y = initYPosition * SIZE)
+    public final int areaXPosition = 25;
+    public final int areaYPosition = 100;
+    public final int gameWidth = 825;
+    public final int areaHeight = 500;
     Timer timer;
-    Snake snake = new Snake(2, 4,this);
-    AreaPlay areaPlay = new AreaPlay(gameWidth, areaHeight, areaXPosition, areaYPosition);
+    Snake snake;
+    AreaPlay areaPlay;
+    Fruit fruit;
 
     public GamePlay() {
         initGame();
@@ -27,8 +31,9 @@ public class GamePlay extends JPanel implements ActionListener {
     }
 
     private void initGame() {
-        snake = new Snake(2, 4,this);
+        snake = new Snake(SIZE, initXPosition, initYPosition,this);
         areaPlay = new AreaPlay(gameWidth, areaHeight, areaXPosition, areaYPosition);
+        fruit = new Fruit(SIZE,this);
         timer = new Timer(100, this);
         timer.start();
     }
@@ -49,6 +54,8 @@ public class GamePlay extends JPanel implements ActionListener {
             areaPlay.paint(g2d);
             // draw snake
             snake.paint(g2d);
+            // draw fruit
+            fruit.paint(g2d);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,13 +65,8 @@ public class GamePlay extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         snake.move();
         repaint();
-        checkCollision();
-    }
+        snake.checkCollision(areaXPosition, gameWidth, areaYPosition, areaHeight);
 
-    private void checkCollision() {
-        if (snake.checkCollision(areaXPosition, gameWidth, areaYPosition, areaHeight)) {
-            gameOver();
-        }
     }
 
     public void gameOver() {
