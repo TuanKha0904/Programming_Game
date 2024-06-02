@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Snake implements ActionListener {
     Block head;
     ArrayList<Block> body;
-    private final int SIZE = 25;
     Image headLeft, headRight, headUp, headDown, tail;
     GamePlay game;
 
@@ -49,6 +48,7 @@ public class Snake implements ActionListener {
     }
 
     public void paint(Graphics2D g) throws IOException {
+        int SIZE = 25;
         if (left)
             g.drawImage(headLeft, head.x * SIZE, head.y * SIZE, SIZE, SIZE, null);
         if (right)
@@ -57,7 +57,7 @@ public class Snake implements ActionListener {
             g.drawImage(headUp, head.x * SIZE, head.y * SIZE, SIZE, SIZE, null);
         if (down)
             g.drawImage(headDown, head.x * SIZE, head.y * SIZE, SIZE, SIZE, null);
-        for(Block block: body)
+        for (Block block : body)
             g.drawImage(tail, block.x * SIZE, block.y * SIZE, SIZE, SIZE, null);
     }
 
@@ -90,32 +90,29 @@ public class Snake implements ActionListener {
     }
 
     public void move() {
-        for (int i = body.size() - 1; i >= 0; i--) {
+        for (int i = body.size() - 1; i > 0; i--) {
             Block current = body.get(i);
+            Block prev = body.get(i - 1);
+            current.x = prev.x;
+            current.y = prev.y;
+        }
 
-            if (i == 0) {
-                current.x = head.x;
-                current.y = head.y;
-            } else {
-                Block prev = body.get(i - 1);
-                current.x = prev.x;
-                current.y = prev.y;
-            }
+        if (!body.isEmpty()) {
+            Block first = body.getFirst();
+            first.x = head.x;
+            first.y = head.y;
+        }
+
         if (left) {
             head.x -= 1;
         }
-
         if (right) {
             head.x += 1;
         }
         if (up) {
             head.y -= 1;
         }
-
         if (down) {
             head.y += 1;
-        }
-
-        }
-    }
+        }    }
 }

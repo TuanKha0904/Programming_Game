@@ -34,15 +34,15 @@ public class GamePlay extends JPanel {
             // draw title image
             Graphics2D g2d = (Graphics2D) g;
             Image titleImg = ImageIO.read(new File("src/assets/title.png"));
-            g.drawImage(titleImg, 25, 10, 835, 80, null);
+            g.drawImage(titleImg, 25, 10, 825, 80, null);
 
             // draw border background
             g2d.setColor(Color.GREEN);
-            g2d.drawRect(25, 110, 835, 500);
+            g2d.drawRect(25, 100, 825, 500);
 
             // draw background
             g2d.setColor(Color.BLACK);
-            g2d.fillRect(25, 100, 835, 500);
+            g2d.fillRect(25, 100, 825, 500);
             // draw snake
             snake.paint(g2d);
         } catch (IOException e) {
