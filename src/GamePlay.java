@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GamePlay extends JPanel {
     public final int WIDTH = 900;
@@ -9,6 +11,16 @@ public class GamePlay extends JPanel {
     BattleShip battleShip = new BattleShip(this);
 
     public GamePlay() {
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                battleShip.keyReleased();
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                battleShip.keyPressed(e);
+            }
+        });
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
     }
@@ -19,5 +31,9 @@ public class GamePlay extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(xPosition, yPosition, WIDTH, HEIGHT);
         battleShip.paintComponent(g);
+    }
+
+    public void move() {
+        battleShip.move();
     }
 }

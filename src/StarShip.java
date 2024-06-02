@@ -13,6 +13,7 @@ public class StarShip {
         frame.add(gamePlay);
         frame.setVisible(true);
         while (true) {
+            gamePlay.move();
             gamePlay.repaint();
             Thread.sleep(10);
         }
