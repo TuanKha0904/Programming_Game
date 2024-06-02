@@ -20,12 +20,4 @@ public class AreaPlay {
         g.setColor(Color.BLACK);
         g.fillRect(xPosition, yPosition, width, height);
     }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
 }
