@@ -2,26 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class BattleShip extends JPanel {
+public class BattleShip {
+    private final ImageIcon battleShipImage = new ImageIcon("src/assets/battleship.gif");
     private final GamePlay game;
     private final int shipSize = 50;
     private int xPosition;
     private final int yPosition;
-    private final Image battleShipImage;
     private int changePosition = 0;
 
     public BattleShip(GamePlay game) {
         this.game = game;
         this.xPosition = (game.getWidth() - shipSize) / 2;
         this.yPosition = game.getHeight() - shipSize * 2;
-        this.battleShipImage = new ImageIcon("src/assets/battleship.gif").getImage();
-        this.setPreferredSize(new Dimension(shipSize, shipSize));
     }
 
-    @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(battleShipImage, xPosition, yPosition, shipSize, shipSize, this);
+        g.drawImage(battleShipImage.getImage(), xPosition, yPosition, shipSize, shipSize, null);
         g.setColor(Color.RED);
     }
 
