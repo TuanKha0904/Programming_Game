@@ -8,6 +8,7 @@ public class EnemyShip {
     private final int shipSize = 50;
     private final int xPosition;
     private int yPosition = -100;
+    private int collision = 0;
 
     public EnemyShip(GamePlay game) {
         this.game = game;
@@ -43,5 +44,13 @@ public class EnemyShip {
 
     public Rectangle getBounds() {
         return new Rectangle(xPosition, yPosition, shipSize, shipSize);
+    }
+
+    public void increaseCollision() {
+        collision++;
+    }
+
+    public boolean breakShip() {
+        return collision == 3;
     }
 }
