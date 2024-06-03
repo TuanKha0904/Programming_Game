@@ -82,11 +82,11 @@ public class GamePlay extends JPanel implements ActionListener {
         }
     }
 
-    public void addRocket() {
+    private void addRocket() {
         rockets.add(new Rocket(battleShip));
     }
 
-    public void addEnemyShip() {
+    private void addEnemyShip() {
         enemyShips.add(new EnemyShip(this));
     }
 
@@ -102,7 +102,7 @@ public class GamePlay extends JPanel implements ActionListener {
         }
     }
 
-    public void updateRocket() {
+    private void updateRocket() {
         rockets.removeIf(Rocket::checkOutScreen);
         enemyShips.removeIf(EnemyShip::checkOutScreen);
         enemyBullets.removeIf(EnemyBullet::checkOutScreen);
