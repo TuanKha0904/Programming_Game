@@ -1,8 +1,7 @@
 import javax.swing.*;
-import java.io.IOException;
 
 public class StarShip {
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) {
         JFrame frame = new JFrame("BattleShip Game");
         GamePlay gamePlay = new GamePlay();
         final int WIDTH = 900;
@@ -13,10 +12,5 @@ public class StarShip {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(gamePlay);
         frame.setVisible(true);
-        while (true) {
-            gamePlay.move();
-            gamePlay.repaint();
-            Thread.sleep(10);
-        }
     }
 }

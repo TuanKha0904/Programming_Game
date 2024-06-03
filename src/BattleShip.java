@@ -4,16 +4,16 @@ import java.awt.event.KeyEvent;
 
 public class BattleShip extends JPanel {
     private final GamePlay game;
-    public final int shipSize = 50;
-    public int xPosition;
-    public final int yPosition;
+    private final int shipSize = 50;
+    private int xPosition;
+    private final int yPosition;
     private final Image battleShipImage;
     private int changePosition = 0;
 
     public BattleShip(GamePlay game) {
         this.game = game;
-        this.xPosition = (game.WIDTH - shipSize) / 2;
-        this.yPosition = game.HEIGHT - shipSize * 2;
+        this.xPosition = (game.getWidth() - shipSize) / 2;
+        this.yPosition = game.getHeight() - shipSize * 2;
         this.battleShipImage = new ImageIcon("src/assets/battleship.gif").getImage();
         this.setPreferredSize(new Dimension(shipSize, shipSize));
     }
@@ -26,7 +26,7 @@ public class BattleShip extends JPanel {
     }
 
     public void move() {
-        if (xPosition + changePosition > 0 && xPosition + changePosition < game.WIDTH - shipSize)
+        if (xPosition + changePosition > 0 && xPosition + changePosition < game.getWidth() - shipSize)
             xPosition += changePosition;
     }
 
@@ -40,5 +40,17 @@ public class BattleShip extends JPanel {
             changePosition = -speed;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
             changePosition = speed;
+    }
+
+    public int getxPosition() {
+    	return xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+
+    public int getShipSize() {
+    	return shipSize;
     }
 }
