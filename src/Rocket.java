@@ -27,4 +27,8 @@ public class Rocket {
     public boolean checkOutScreen() {
         return yPosition < -rocketHeight;
     }
+
+    public Rectangle getBounds() {
+        return new Rectangle(xPosition, yPosition, rocketWidth, rocketHeight);
+    }
 }

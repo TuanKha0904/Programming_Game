@@ -41,4 +41,7 @@ public class EnemyShip {
         return yPosition;
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(xPosition, yPosition, shipSize, shipSize);
+    }
 }

@@ -108,10 +108,23 @@ public class GamePlay extends JPanel implements ActionListener {
         enemyBullets.removeIf(EnemyBullet::checkOutScreen);
     }
 
+    private void checkCollisions() {
+        ArrayList<Rocket> rocketsToRemove = new ArrayList<>();
+        for (Rocket rocket : rockets) {
+            for (EnemyShip enemyShip : enemyShips) {
+                if (rocket.getBounds().intersects(enemyShip.getBounds())) {
+                    rocketsToRemove.add(rocket);
+                }
+            }
+        }
+        rockets.removeAll(rocketsToRemove);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
         updateRocket();
+        checkCollisions();
         repaint();
     }
 
