@@ -4,30 +4,31 @@ import java.awt.event.KeyEvent;
 
 public class BattleShip extends JPanel {
     private final GamePlay game;
-    private final int heightSize = 100;
-    private final int widthSize = 100;
-    private int xPosition;
-    private final int yPosition;
+    public final int shipSize = 50;
+    public int xPosition;
+    public final int yPosition;
     private final Image battleShipImage;
     private int changePosition = 0;
     private int speed = 2;
 
     public BattleShip(GamePlay game) {
         this.game = game;
-        this.xPosition = (game.WIDTH - widthSize) / 2;
-        this.yPosition = game.HEIGHT - heightSize * 2;
+        this.xPosition = (game.WIDTH - shipSize) / 2;
+        this.yPosition = game.HEIGHT - shipSize * 2;
+        System.out.println(xPosition);
         this.battleShipImage = new ImageIcon("src/assets/battleship.gif").getImage();
-        this.setPreferredSize(new Dimension(widthSize, heightSize));
+        this.setPreferredSize(new Dimension(shipSize, shipSize));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(battleShipImage, xPosition, yPosition, widthSize, heightSize, this);
+        g.drawImage(battleShipImage, xPosition, yPosition, shipSize, shipSize, this);
+        g.setColor(Color.RED);
     }
 
     public void move() {
-        if (xPosition + changePosition > 0 && xPosition + changePosition < game.WIDTH - widthSize)
+        if (xPosition + changePosition > 0 && xPosition + changePosition < game.WIDTH - shipSize)
             xPosition += changePosition;
     }
 
