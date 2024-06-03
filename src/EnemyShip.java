@@ -12,7 +12,7 @@ public class EnemyShip {
     public EnemyShip(GamePlay game) {
         this.game = game;
         Random random = new Random();
-        this.xPosition = random.nextInt(game.getWidth());
+        this.xPosition = random.nextInt(shipSize, game.getWidth() - shipSize);
     }
 
     protected void paintComponent(Graphics g) {
@@ -28,4 +28,17 @@ public class EnemyShip {
     public boolean checkOutScreen() {
         return yPosition > game.getHeight() + shipSize;
     }
+
+    public int getShipSize() {
+        return shipSize;
+    }
+
+    public int getxPosition() {
+        return xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+
 }

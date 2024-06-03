@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GamePlay extends JPanel implements ActionListener {
     private final int WIDTH = 900;
@@ -12,11 +13,13 @@ public class GamePlay extends JPanel implements ActionListener {
     private final BattleShip battleShip;
     private final ArrayList<Rocket> rockets;
     private final ArrayList<EnemyShip> enemyShips;
+    private final ArrayList<EnemyBullet> enemyBullets;
 
     public GamePlay() {
         battleShip = new BattleShip(this);
         enemyShips = new ArrayList<>();
         rockets = new ArrayList<>();
+        enemyBullets = new ArrayList<>();
         // Add key listener for game play
         addKeyListener(new KeyAdapter() {
             @Override
@@ -40,7 +43,12 @@ public class GamePlay extends JPanel implements ActionListener {
         // Set timer for enemy ship loop
         Timer enemyShipTimer = new Timer(3000, e -> addEnemyShip());
         enemyShipTimer.start();
+        // Set timer for enemy bullet loop
+        Timer enemyBulletTimer = new Timer(3000, e -> addEnemyBullet());
+        enemyBulletTimer.start();
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -56,6 +64,9 @@ public class GamePlay extends JPanel implements ActionListener {
         for (EnemyShip enemyShip : enemyShips) {
             enemyShip.paintComponent(g);
         }
+        for (EnemyBullet enemyBullet : enemyBullets) {
+            enemyBullet.paintComponent(g);
+        }
     }
 
     public void move() {
@@ -65,6 +76,9 @@ public class GamePlay extends JPanel implements ActionListener {
         }
         for (EnemyShip enemyShip : enemyShips) {
             enemyShip.move();
+        }
+        for (EnemyBullet enemyBullet : enemyBullets) {
+            enemyBullet.move();
         }
     }
 
@@ -76,9 +90,22 @@ public class GamePlay extends JPanel implements ActionListener {
         enemyShips.add(new EnemyShip(this));
     }
 
+    private void addEnemyBullet() {
+        if (!enemyShips.isEmpty()) {
+            Random random = new Random();
+            for (EnemyShip enemyShip : enemyShips) {
+                // Add enemy bullet if random boolean is true (50%)
+                if (random.nextBoolean()) {
+                    enemyBullets.add(new EnemyBullet(this, enemyShip));
+                }
+            }
+        }
+    }
+
     public void updateRocket() {
         rockets.removeIf(Rocket::checkOutScreen);
         enemyShips.removeIf(EnemyShip::checkOutScreen);
+        enemyBullets.removeIf(EnemyBullet::checkOutScreen);
     }
 
     @Override
