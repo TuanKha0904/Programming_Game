@@ -10,17 +10,15 @@ import java.util.Random;
 public class GamePlay extends JPanel implements ActionListener {
     private final int WIDTH = 900;
     private final int HEIGHT = 700;
-    private final BattleShip battleShip;
-    private final ArrayList<Rocket> rockets;
-    private final ArrayList<EnemyShip> enemyShips;
-    private final ArrayList<EnemyBullet> enemyBullets;
+    private BattleShip battleShip;
+    private ArrayList<Rocket> rockets;
+    private ArrayList<EnemyShip> enemyShips;
+    private ArrayList<EnemyBullet> enemyBullets;
+    private ArrayList<Heart> hearts;
     private int score = 0;
 
     public GamePlay() {
-        battleShip = new BattleShip(this);
-        enemyShips = new ArrayList<>();
-        rockets = new ArrayList<>();
-        enemyBullets = new ArrayList<>();
+        initGame();
         // Add key listener for game play
         addKeyListener(new KeyAdapter() {
             @Override
@@ -75,6 +73,10 @@ public class GamePlay extends JPanel implements ActionListener {
         g.setColor(Color.GREEN);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score, xScore, yScore);
+        // Paint heart
+        for (Heart heart : hearts) {
+            heart.paintComponent(g);
+        }
     }
 
     public void move() {
@@ -110,6 +112,12 @@ public class GamePlay extends JPanel implements ActionListener {
         }
     }
 
+    private void addHeart() {
+        if (hearts.size() < 3) {
+            hearts.add(new Heart(WIDTH - (40 * (hearts.size() + 1)), 15));
+        }
+    }
+
     private void updateRocket() {
         rockets.removeIf(Rocket::checkOutScreen);
         enemyShips.removeIf(EnemyShip::checkOutScreen);
@@ -137,12 +145,15 @@ public class GamePlay extends JPanel implements ActionListener {
 
     private void bulletAndBattleShipCollision() {
         ArrayList<EnemyBullet> enemyBulletsToRemove = new ArrayList<>();
-        for(EnemyBullet enemyBullet : enemyBullets) {
+        ArrayList<Heart> heartToRemove = new ArrayList<>();
+        for (EnemyBullet enemyBullet : enemyBullets) {
             if (enemyBullet.getBounds().intersects(battleShip.getBounds())) {
+                heartToRemove.add(hearts.getLast());
                 enemyBulletsToRemove.add(enemyBullet);
             }
         }
         enemyBullets.removeAll(enemyBulletsToRemove);
+        hearts.removeAll(heartToRemove);
     }
 
     @Override
@@ -151,7 +162,37 @@ public class GamePlay extends JPanel implements ActionListener {
         updateRocket();
         rocketAndEnemyShipCollision();
         bulletAndBattleShipCollision();
+        gameOver();
         repaint();
+    }
+
+    private void gameOver() {
+        if (hearts.isEmpty()) {
+            int option = JOptionPane.showOptionDialog(this,
+                    "Game over. Your score: " + score,
+                    "Game Over",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    new String[]{"Exit", "Restart"},
+                    "Exit"
+            );
+            if (option == JOptionPane.NO_OPTION) {
+                initGame();
+            } else System.exit(ABORT);
+        }
+    }
+
+    private void initGame() {
+        score = 0;
+        battleShip = new BattleShip(this);
+        rockets = new ArrayList<>();
+        enemyShips = new ArrayList<>();
+        enemyBullets = new ArrayList<>();
+        hearts = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            hearts.add(new Heart(WIDTH - (40 * (i + 1)), 15));
+        }
     }
 
     public int getWidth() {
