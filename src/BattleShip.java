@@ -18,7 +18,6 @@ public class BattleShip {
 
     protected void paintComponent(Graphics g) {
         g.drawImage(battleShipImage.getImage(), xPosition, yPosition, shipSize, shipSize, null);
-        g.setColor(Color.RED);
     }
 
     public void move() {
