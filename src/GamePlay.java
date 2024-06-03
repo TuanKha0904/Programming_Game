@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
 public class GamePlay extends JPanel {
     public final int WIDTH = 900;
@@ -10,9 +9,9 @@ public class GamePlay extends JPanel {
     public final int xPosition = 0;
     public final int yPosition = 0;
     BattleShip battleShip = new BattleShip(this);
-    Rocket rocket = new Rocket(this, battleShip);
+    Rocket rocket = new Rocket(battleShip);
 
-    public GamePlay() throws IOException {
+    public GamePlay() {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -38,5 +37,6 @@ public class GamePlay extends JPanel {
 
     public void move() {
         battleShip.move();
+        rocket.move();
     }
 }

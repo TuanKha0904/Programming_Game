@@ -9,13 +9,11 @@ public class BattleShip extends JPanel {
     public final int yPosition;
     private final Image battleShipImage;
     private int changePosition = 0;
-    private int speed = 2;
 
     public BattleShip(GamePlay game) {
         this.game = game;
         this.xPosition = (game.WIDTH - shipSize) / 2;
         this.yPosition = game.HEIGHT - shipSize * 2;
-        System.out.println(xPosition);
         this.battleShipImage = new ImageIcon("src/assets/battleship.gif").getImage();
         this.setPreferredSize(new Dimension(shipSize, shipSize));
     }
@@ -37,6 +35,7 @@ public class BattleShip extends JPanel {
     }
 
     public void keyPressed(KeyEvent e) {
+        int speed = 2;
         if (e.getKeyCode() == KeyEvent.VK_LEFT)
             changePosition = -speed;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
