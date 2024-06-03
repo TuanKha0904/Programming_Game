@@ -20,7 +20,7 @@ public class Rocket {
     }
 
     public void move() {
-        int speed = 3;
+        int speed = 5;
         yPosition -= speed;
     }
 
