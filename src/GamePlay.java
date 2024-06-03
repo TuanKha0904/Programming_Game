@@ -14,6 +14,7 @@ public class GamePlay extends JPanel implements ActionListener {
     private final ArrayList<Rocket> rockets;
     private final ArrayList<EnemyShip> enemyShips;
     private final ArrayList<EnemyBullet> enemyBullets;
+    private int score = 0;
 
     public GamePlay() {
         battleShip = new BattleShip(this);
@@ -48,8 +49,6 @@ public class GamePlay extends JPanel implements ActionListener {
         enemyBulletTimer.start();
     }
 
-
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -58,15 +57,24 @@ public class GamePlay extends JPanel implements ActionListener {
         int yPosition = 0;
         g.fillRect(xPosition, yPosition, WIDTH, HEIGHT);
         battleShip.paintComponent(g);
+        // Paint rocket
         for (Rocket rocket : rockets) {
             rocket.paintComponent(g);
         }
+        // Paint enemy ship
         for (EnemyShip enemyShip : enemyShips) {
             enemyShip.paintComponent(g);
         }
+        // Paint enemy bullets
         for (EnemyBullet enemyBullet : enemyBullets) {
             enemyBullet.paintComponent(g);
         }
+        // Paint string score
+        int xScore = 10;
+        int yScore = 30;
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + score, xScore, yScore);
     }
 
     public void move() {
@@ -116,9 +124,10 @@ public class GamePlay extends JPanel implements ActionListener {
                 if (rocket.getBounds().intersects(enemyShip.getBounds())) {
                     rocketsToRemove.add(rocket);
                     enemyShip.increaseCollision();
-                }
-                if (enemyShip.breakShip()) {
-                    enemyShipsToRemove.add(enemyShip);
+                    if (enemyShip.breakShip()) {
+                        increaseScore();
+                        enemyShipsToRemove.add(enemyShip);
+                    }
                 }
             }
         }
@@ -151,5 +160,9 @@ public class GamePlay extends JPanel implements ActionListener {
 
     public int getHeight() {
         return HEIGHT;
+    }
+
+    private void increaseScore() {
+        score++;
     }
 }
