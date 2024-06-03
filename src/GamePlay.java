@@ -108,7 +108,7 @@ public class GamePlay extends JPanel implements ActionListener {
         enemyBullets.removeIf(EnemyBullet::checkOutScreen);
     }
 
-    private void checkCollisions() {
+    private void rocketAndEnemyShipCollision() {
         ArrayList<Rocket> rocketsToRemove = new ArrayList<>();
         ArrayList<EnemyShip> enemyShipsToRemove = new ArrayList<>();
         for (Rocket rocket : rockets) {
@@ -126,11 +126,22 @@ public class GamePlay extends JPanel implements ActionListener {
         enemyShips.removeAll(enemyShipsToRemove);
     }
 
+    private void bulletAndBattleShipCollision() {
+        ArrayList<EnemyBullet> enemyBulletsToRemove = new ArrayList<>();
+        for(EnemyBullet enemyBullet : enemyBullets) {
+            if (enemyBullet.getBounds().intersects(battleShip.getBounds())) {
+                enemyBulletsToRemove.add(enemyBullet);
+            }
+        }
+        enemyBullets.removeAll(enemyBulletsToRemove);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
         updateRocket();
-        checkCollisions();
+        rocketAndEnemyShipCollision();
+        bulletAndBattleShipCollision();
         repaint();
     }
 

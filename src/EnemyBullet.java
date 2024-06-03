@@ -29,4 +29,8 @@ public class EnemyBullet {
     public boolean checkOutScreen() {
         return yPosition > game.getHeight() + bulletHeight;
     }
+
+    public Rectangle getBounds() {
+        return new Rectangle(xPosition, yPosition, bulletWidth, bulletHeight);
+    }
 }

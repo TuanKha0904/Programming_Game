@@ -48,4 +48,8 @@ public class BattleShip {
     public int getShipSize() {
     	return shipSize;
     }
+
+    public Rectangle getBounds() {
+    	return new Rectangle(xPosition, yPosition, shipSize, shipSize);
+    }
 }
