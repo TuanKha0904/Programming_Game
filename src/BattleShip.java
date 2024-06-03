@@ -30,7 +30,7 @@ public class BattleShip {
     }
 
     public void keyPressed(KeyEvent e) {
-        int speed = 2;
+        int speed = 5;
         if (e.getKeyCode() == KeyEvent.VK_LEFT)
             changePosition = -speed;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
